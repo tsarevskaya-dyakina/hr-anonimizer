@@ -18,7 +18,7 @@ import xlsxwriter
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
-HTML = ROOT / 'bezopasnyj-cikl-v0.6.0.html'
+HTML = ROOT / 'bezopasnyj-cikl-v1.0.0.html'
 
 
 class QuietHandler(SimpleHTTPRequestHandler):

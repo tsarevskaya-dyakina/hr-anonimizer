@@ -272,7 +272,7 @@ class Stage3(unittest.TestCase):
     def test_stage2_key_and_text_are_still_supported(self):
         old = self.browser.new_page()
         try:
-            old.goto(self.url.replace('v0.6.0', 'v0.2.0'))
+            old.goto(self.url.replace('v1.0.0', 'v0.2.0'))
             payload = old.evaluate("async()=>await SafeCycle.Engine.anonymizeText('Иванов Иван Иванович, demo@example.test.',{},false)")
         finally:
             old.close()

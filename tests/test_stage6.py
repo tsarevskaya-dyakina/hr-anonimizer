@@ -152,7 +152,7 @@ class Stage6(unittest.TestCase):
     def test_legacy_05_word_key_remains_supported(self):
         old=self.browser.new_page()
         try:
-            old.goto(self.url.replace('v0.6.0','v0.5.0'))
+            old.goto(self.url.replace('v1.0.0','v0.5.0'))
             data=old.evaluate('''async()=>{const S=SafeCycle,b=await S.Docx.load(await (await S.Docx.demo()).arrayBuffer()),out=await S.Docx.anonymize(b,'old.docx',{},false);return {key:out.key,data:await new Promise(resolve=>{const r=new FileReader();r.onload=()=>resolve(r.result.split(',')[1]);r.readAsDataURL(out.blob)})}}''')
         finally:old.close()
         restored=self.page.evaluate('''async ({key,data})=>{const out=await SafeCycle.Engine.restore(Uint8Array.from(atob(data),c=>c.charCodeAt(0)).buffer,key);return {restored:out.restored,sameHash:out.sameHash}}''',data)
@@ -229,7 +229,7 @@ class Stage6(unittest.TestCase):
 
     def test_builtin_reliability_checks_and_all_checks_ui(self):
         checks=self.page.evaluate('async()=>await SafeCycle.ReliabilitySelfTest.run()');self.assertEqual(len(checks),4);self.assertTrue(all(c['pass'] for c in checks),checks)
-        self.page.get_by_text('Для службы ИБ · ограничения и самопроверка',exact=True).click();self.page.locator('#selftest').click();self.page.locator('#busy').wait_for(state='hidden');self.assertEqual(self.page.locator('#tests .test-pass').count(),29);self.assertEqual(self.page.locator('#tests .test-fail').count(),0)
+        self.page.get_by_text('Для службы ИБ · ограничения и самопроверка',exact=True).click();self.page.locator('#selftest').click();self.page.locator('#busy').wait_for(state='hidden');self.assertEqual(self.page.locator('#tests .test-pass').count(),33);self.assertEqual(self.page.locator('#tests .test-fail').count(),0)
 
     def test_human_key_and_package_outputs_open_in_libreoffice(self):
         result,_=self.bundle(include_csv=False)

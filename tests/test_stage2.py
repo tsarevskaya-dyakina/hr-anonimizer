@@ -222,7 +222,7 @@ class Stage2(unittest.TestCase):
     def test_legacy_stage1_key_is_supported(self):
         old = self.browser.new_page()
         try:
-            old.goto(self.url.replace('v0.6.0', 'v0.1.0'))
+            old.goto(self.url.replace('v1.0.0', 'v0.1.0'))
             payload = old.evaluate('''async()=>{
               const S=SafeCycle,book=await S.Xlsx.load(await (await S.Demo.create()).arrayBuffer());
               const settings=book.sheets.map(s=>({path:s.path,headerRow:1,

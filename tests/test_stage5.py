@@ -346,7 +346,7 @@ class Stage5(unittest.TestCase):
         self.assertEqual(len(results),4);self.assertTrue(all(r['pass'] for r in results),results)
         self.page.get_by_text('Для службы ИБ · ограничения и самопроверка',exact=True).click()
         self.page.locator('#selftest').click();self.page.locator('#busy').wait_for(state='hidden')
-        self.assertEqual(self.page.locator('#tests .test-pass').count(),29)
+        self.assertEqual(self.page.locator('#tests .test-pass').count(),33)
         self.assertEqual(self.page.locator('#tests .test-fail').count(),0)
         self.page.locator('#source-word').click();self.page.locator('#privacy-demo').click();self.page.locator('#busy').wait_for(state='hidden')
         self.assertTrue(self.page.locator('#config-card').is_visible());self.assertTrue(self.page.locator('#word-options').is_hidden())

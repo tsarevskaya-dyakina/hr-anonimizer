@@ -221,7 +221,7 @@ class Stage4(unittest.TestCase):
         self.page.locator('#ack').check()
         expect(self.page.locator('#download-file')).to_be_disabled()
         expect(self.page.locator('#download-key')).to_be_disabled()
-        self.assertIn('xl/unknown.xml', self.page.locator('#leak-list').inner_text())
+        self.assertIn('xl/unknown.xml', self.page.locator('#leak-list').text_content())
         self.page.locator('#download-override').check()
         expect(self.page.locator('#download-file')).to_be_enabled()
         with self.page.expect_download() as download:
@@ -416,7 +416,7 @@ class Stage4(unittest.TestCase):
     def test_stage3_numeric_key_preserves_unmodified_metadata_labels(self):
         old = self.browser.new_page()
         try:
-            old.goto(self.url.replace('v0.6.0', 'v0.3.0'))
+            old.goto(self.url.replace('v1.0.0', 'v0.3.0'))
             payload = old.evaluate('''async()=>{const S=SafeCycle,book=await S.Xlsx.load(await (await S.Demo.createNumbers()).arrayBuffer());book.archive.set('docProps/core.xml','<coreProperties xmlns="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/"><dc:creator>Сотрудник_0001</dc:creator></coreProperties>');const out=await S.Engine.anonymize(book,book.sheets.map((s,i)=>({path:s.path,headerRow:1,columns:Array.from({length:s.maxCol},(_,c)=>({mode:i?'keep':['scale','keep','range','date','alias'][c],category:'Сотрудник',rangeStep:50000}))})),'stage3.xlsx',false,undefined,undefined,{crosscheck:false});return {key:out.key,data:await new Promise(resolve=>{const r=new FileReader();r.onload=()=>resolve(r.result.split(',')[1]);r.readAsDataURL(out.blob)})}}''')
         finally:
             old.close()
