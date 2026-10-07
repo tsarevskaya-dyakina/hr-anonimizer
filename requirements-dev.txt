@@ -1,0 +1,6 @@
+# Только независимые проверки. Сам HTML ничего не устанавливает.
+openpyxl==3.1.5
+XlsxWriter==3.2.9
+playwright==1.62.0
+python-docx==1.2.0
+cryptography==50.0.0
